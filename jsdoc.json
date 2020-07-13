@@ -1,0 +1,63 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": ["./src/", "./README.md"],
+    "includePattern": ".js$",
+    "excludePattern": "(./node_modules/|./WshModules/|./test/|.test.js)"
+  },
+  "plugins": ["plugins/markdown"],
+  "opts": {
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "recurse": true,
+    "verbose": true,
+    "template": "./node_modules/docdash"
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": false,
+      "useLongnameInNav": true
+    }
+  },
+  "docdash": {
+    "static": true,
+    "sort": true,
+    "disqus": "",
+    "openGraph": {
+      "title": "WshDotEnv",
+      "type": "website",
+      "image": "https://docs.tuckn.net/WshDotEnv/img/openGraph-image.png",
+      "site_name": "@tuckn/WshDotEnv",
+      "url": "https://docs.tuckn.net/WshDotEnv"
+    },
+    "meta": {
+      "title": "WshDotEnv",
+      "description": "DotEnv-like module for WSH (Windows Script Host) that reads/writes environment values in a .env file.",
+      "keyword": "Windows, CLI, WSH, WSF, JScript, VBScript, command, parser, argument, module"
+    },
+    "search": true,
+    "collapse": false,
+    "wrap": false,
+    "typedefs": true,
+    "removeQuotes": "none",
+    "menu": {
+      "Github repo": {
+        "href": "https://github.com/tuckn/WshDotEnv",
+        "target": "_blank",
+        "class": "menu-item",
+        "id": "repository"
+      }
+    }
+  }
+}
