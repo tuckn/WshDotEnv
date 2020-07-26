@@ -34,7 +34,7 @@ or
 > git submodule add https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
 ```
 
-(3) Include _.\WshDotEnv\dist\bundle.js_ into your .wsf file.
+(3) Include _.\\WshDotEnv\\dist\\bundle.js_ into your .wsf file.
 For Example, if your file structure is
 
 ```console
@@ -60,11 +60,11 @@ The content of above _Run.wsf_ is
 ```
 
 I recommend this .wsf file encoding to be UTF-8 [BOM, CRLF].
-This allows the following functions to be used in _.\MyScript.js_.
+This allows the following functions to be used in _.\\MyScript.js_.
 
-### Together with other WshModeJs Apps
+### Together with another WshModeJs Apps
 
-If you want to use it together with other WshModeJs Apps, install as following
+If you want to use it together with another WshModeJs Apps, install as following
 
 ```console
 > git clone https://github.com/tuckn/WshModeJs.git ./WshModules/WshModeJs
@@ -87,11 +87,11 @@ or
 </package>
 ```
 
-But if you have no special circumstances, I recommend using [WshBasicApps](https://github.com/tuckn/WshBasicPackage).
+If you have no special circumstances, I recommend using [WshBasicApps](https://github.com/tuckn/WshBasicPackage).
 
 ## Usage
 
-Now the above _.\MyScript.js_ (JScript) can handle .evn file.
+Now the above _.\\MyScript.js_ (JScript) can handle .env file.
 If the contents of .env file are following...
 
 ```sh
@@ -120,17 +120,18 @@ console.dir(process.env);
 //   CommonProgramW6432: "C:\Program Files\Common Files",
 //   ..
 //   ...
-//   EMPTY: '',
+//   EMPTY: "",
 //   JSON: { foo: "bar" },
-//   WHITE_SPACE: 'some value',
-//   SINGLE_QUOTE: '  some value ',
-//   DOUBLE_QUOTE: '  Some Value ',
-//   MULTILINE: 'new\nline',
-//   DIR_7ZIP: 'C:\\Program Files\\7-Zip',
-//   PATH_CONFIG: '.\\.config\\office-smb-resources.json' }
+//   WHITE_SPACE: "some value",
+//   SINGLE_QUOTE: "  some value ",
+//   DOUBLE_QUOTE: "  Some Value ",
+//   MULTILINE: "new
+// line",
+//   DIR_7ZIP: "C:\Program Files\7-Zip",
+//   PATH_CONFIG: ".\.config\office-smb-resources.json" }
 ```
 
-### Change .env path to read
+### To Change Env-Path
 
 ```js
 var dotenv = Wsh.DotEnv;
@@ -145,7 +146,9 @@ dotenv.config({ path: 'userProfile' });
 dotenv.config({ path: 'D:\\temp\\myValue.txt' });
 ```
 
-And you can also use the following useful functions in _.\MyScript.js_ (JScript).
+### Dependency Modules
+
+You can also use the following useful functions in _.\\MyScript.js_ (JScript).
 
 - [tuckn/WshPolyfill](https://github.com/tuckn/WshPolyfill)
 - [tuckn/WshUtil](https://github.com/tuckn/WshUtil)
