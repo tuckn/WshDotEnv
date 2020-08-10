@@ -144,6 +144,9 @@ dotenv.config({ path: 'portable' });
 dotenv.config({ path: 'userProfile' });
 // Ex 4. Reads the custom file
 dotenv.config({ path: 'D:\\temp\\myValue.txt' });
+// Can use the date literal
+dotenv.config({ path: 'D:\\#{yyyy}\\#{MM}\\#{dd}.env', parsesDate: true });
+// Will convert the path to 'D:\\2020\\08\\10.env'
 ```
 
 ### Dependency Modules

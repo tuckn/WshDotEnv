@@ -25,6 +25,7 @@
   var obtain = util.obtainPropVal;
   var isPlainObject = util.isPlainObject;
   var hasOwnProp = util.hasOwnProp;
+  var parseDate = util.parseDateLiteral;
 
   var dotenv = Wsh.DotEnv;
 
@@ -123,6 +124,7 @@
    * @memberof Wsh.DotEnv
    * @param {object} [options] - Optional parameters.
    * @param {string} [options.path] - Default: {@link Wsh.DotEnv.envPathDefault}. portable, userProfile, `File Path`
+   * @param {boolean} [options.parsesDate=false] - Parses the path as the date literal. See {@link https://docs.tuckn.net/WshUtil/Wsh.Util.html#.parseDateLiteral}.
    * @param {string} [options.encoding] - Default: 'utf-8'. See {@link https://docs.tuckn.net/WshFileSystem/Wsh.FileSystem.html#.readFileSync|Wsh.FileSystem.readFileSync}
    * @returns {object} - Returns an Object with a `parsed` key containing the loaded content or an `error` key if it failed.
    */
@@ -131,13 +133,15 @@
     if (!isPlainObject(options)) options = {};
 
     var envPath = obtain(options, 'path', dotenv.envPathDefault);
+    var parsesDate = obtain(options, 'parsesDate', false);
 
     if (/^portable$/i.test(envPath)) {
       dotenv.path = dotenv.envPathPortable;
     } else if (/^userProfile$/i.test(envPath)) {
       dotenv.path = dotenv.envPathUsers;
     } else {
-      dotenv.path = envPath;
+      if (parsesDate) dotenv.path = parseDate(envPath);
+      else dotenv.path = envPath;
     }
 
     try {

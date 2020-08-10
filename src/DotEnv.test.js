@@ -14,6 +14,7 @@ var dotenv = Wsh.DotEnv;
 
 var isError = util.isError;
 var cloneDeep = util.cloneDeep;
+var parseDate = util.parseDateLiteral;
 
 var _cb = function (fn/* , args */) {
   var args = Array.from(arguments).slice(1);
@@ -160,6 +161,44 @@ describe('DotEnv', function () {
     expect(process.env.PATH_CONFIG).toBeUndefined();
 
     var result = dotenv.config({ path: envPath });
+    expect(isError(result.error)).toBe(false);
+
+    expect(process.env.DIR_7ZIP).toBe('C:\\Program Files\\7-Zip');
+    expect(process.env.PATH_IRFANVIEW).toBe('C:\\Program Files\\IrfanView\\i_view64.exe');
+    expect(process.env.PATH_CONFIG).toBe('.\\.config\\office-smb-resources.json');
+
+    // Cleans
+    fse.removeSync(envPath);
+    expect(fs.existsSync(envPath)).toBe(false);
+  });
+
+  test('customPathEnv_DateLeteral', function () {
+    process.env = os.getEnvVars(); // Resets env values
+
+    var dtLiteral = '#{yyyy-MM}';
+    var dtStr = parseDate(dtLiteral);
+    var envPathHead = os.makeTmpPath('DotEnv_');
+    var envPath = envPathHead + '_' + dtStr;
+    var envSets = [
+      'DIR_7ZIP=C:\\Program Files\\7-Zip',
+      'PATH_IRFANVIEW=C:\\Program Files\\IrfanView\\i_view64.exe',
+      'PATH_CONFIG=.\\.config\\office-smb-resources.json'
+    ];
+    fs.writeFileSync(envPath, envSets.join('\n'), { encoding: 'utf8' });
+
+    expect(process.env.DIR_7ZIP).toBeUndefined();
+    expect(process.env.PATH_IRFANVIEW).toBeUndefined();
+    expect(process.env.PATH_CONFIG).toBeUndefined();
+
+    // Non parsesDate (false)
+    var result = dotenv.config({ path: envPathHead + '_' + dtLiteral });
+    expect(isError(result.error)).toBe(true);
+
+    // parsesDate is true
+    result = dotenv.config({
+      path: envPathHead + '_' + dtLiteral,
+      parsesDate: true
+    });
     expect(isError(result.error)).toBe(false);
 
     expect(process.env.DIR_7ZIP).toBe('C:\\Program Files\\7-Zip');
