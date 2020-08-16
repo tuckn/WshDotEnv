@@ -172,7 +172,7 @@ describe('DotEnv', function () {
     expect(fs.existsSync(envPath)).toBe(false);
   });
 
-  test('customPathEnv_DateLeteral', function () {
+  test('customPathEnv_DateLiteral', function () {
     process.env = os.getEnvVars(); // Resets env values
 
     var dtLiteral = '#{yyyy-MM}';

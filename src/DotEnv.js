@@ -38,7 +38,7 @@
 
   // dotenv.envPathDefault {{{
   /**
-   * The path of .env directory in the current direcotory.
+   * The path of .env directory in the current directory.
    *
    * @name envPathDefault
    * @memberof Wsh.DotEnv
@@ -77,7 +77,7 @@
    * // # Lines beginning with # are threated as comments,
    * // EMPTY=
    * // JSON={ foo: "bar" }
-   * // WHITE_SPACE=  some value 
+   * // WHITE_SPACE=  some value
    * // SINGLE_QUOTE='  some value '
    * // DOUBLE_QUOTE="  Some Value "
    * // MULTILINE="new
