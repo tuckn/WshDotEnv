@@ -9,9 +9,9 @@ DotEnv-like module for WSH (Windows Script Host) that reads/writes environment v
 &emsp;&emsp;├─ [WshConfigStore](https://github.com/tuckn/WshConfigStore) (./dist/module.js)  
 &emsp;&emsp;├─ WshDotEnv - This repository (./dist/module.js)  
 &emsp;&emsp;├─ [WshLogger](https://github.com/tuckn/WshLogger) (./dist/module.js)  
-&emsp;&emsp;└─ [WshModeJs](https://github.com/tuckn/WshModeJs) (./dist/bundle.js)
+&emsp;&emsp;└─ [WshModeJs](https://github.com/tuckn/WshModeJs) (./dist/bundle.js)  
 
-WshBasicApps can use all the above modules functions.
+WshBasicApps can use all the above modules.
 
 ## Operating environment
 
@@ -26,7 +26,7 @@ D:\> mkdir MyWshProject
 D:\> cd MyWshProject
 ```
 
-(2) Download this ZIP and unzipping or Use the following `git` command.
+(2) Download this ZIP and unzip or Use the following `git` command.
 
 ```console
 > git clone https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
@@ -34,13 +34,24 @@ or
 > git submodule add https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
 ```
 
-(3) Include _.\\WshDotEnv\\dist\\bundle.js_ into your .wsf file.
-For Example, if your file structure is
+(3) Create your JScript (.js) file. For Example,
 
 ```console
 D:\MyWshProject\
-├─ .env
-├─ Run.wsf
+├─ MyScript.js <- Your JScript code will be written in this.
+└─ WshModules\
+    └─ WshDotEnv\
+        └─ dist\
+          └─ bundle.js
+```
+
+I recommend JScript (.js) file encoding to be UTF-8 [BOM, CRLF].
+
+(4) Create your WSF packaging scripts file (.wsf).
+
+```console
+D:\MyWshProject\
+├─ Run.wsf <- WSH entry file
 ├─ MyScript.js
 └─ WshModules\
     └─ WshDotEnv\
@@ -48,7 +59,8 @@ D:\MyWshProject\
           └─ bundle.js
 ```
 
-The content of above _Run.wsf_ is
+And you should include _.../dist/bundle.js_ into the WSF file.
+For Example, The content of the above _Run.wsf_ is
 
 ```xml
 <package>
@@ -59,35 +71,9 @@ The content of above _Run.wsf_ is
 </package>
 ```
 
-I recommend this .wsf file encoding to be UTF-8 [BOM, CRLF].
-This allows the following functions to be used in _.\\MyScript.js_.
+I recommend this WSH file (.wsf) encoding to be UTF-8 [BOM, CRLF].
 
-### Together with another WshModeJs Apps
-
-If you want to use it together with another WshModeJs Apps, install as following
-
-```console
-> git clone https://github.com/tuckn/WshModeJs.git ./WshModules/WshModeJs
-> git clone https://github.com/tuckn/WshCommander.git ./WshModules/WshCommander
-> git clone https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
-or
-> git submodule add https://github.com/tuckn/WshModeJs.git ./WshModules/WshModeJs
-> git submodule add https://github.com/tuckn/WshCommander.git ./WshModules/WshCommander
-> git submodule add https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
-```
-
-```xml
-<package>
-  <job id = "run">
-    <script language="JScript" src="./WshModules/WshModeJs/dist/bundle.js"></script>
-    <script language="JScript" src="./WshModules/WshCommander/dist/module.js"></script>
-    <script language="JScript" src="./WshModules/WshDotEnv/dist/module.js"></script>
-    <script language="JScript" src="./MyScript.js"></script>
-  </job>
-</package>
-```
-
-If you have no special circumstances, I recommend using [WshBasicApps](https://github.com/tuckn/WshBasicPackage).
+Awesome! This WSH configuration allows you to use the following functions in JScript (_.\\MyScript.js_).
 
 ## Usage
 
@@ -98,7 +84,7 @@ If the contents of .env file are following...
 # Lines beginning with # are threated as comments,
 EMPTY=
 JSON={ foo: "bar" }
-WHITE_SPACE=  some value 
+WHITE_SPACE=  some value
 SINGLE_QUOTE='  some value '
 DOUBLE_QUOTE="  Some Value "
 MULTILINE="new
@@ -149,9 +135,41 @@ dotenv.config({ path: 'D:\\#{yyyy}\\#{MM}\\#{dd}.env', parsesDate: true });
 // Will convert the path to 'D:\\2020\\08\\10.env'
 ```
 
+### Together with another WshModeJs Apps
+
+If you want to use it together with other WshModeJs Apps, install as following
+
+```console
+> git clone https://github.com/tuckn/WshModeJs.git ./WshModules/WshModeJs
+> git clone https://github.com/tuckn/WshCommander.git ./WshModules/WshCommander
+> git clone https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
+or
+> git submodule add https://github.com/tuckn/WshModeJs.git ./WshModules/WshModeJs
+> git submodule add https://github.com/tuckn/WshCommander.git ./WshModules/WshCommander
+> git submodule add https://github.com/tuckn/WshDotEnv.git ./WshModules/WshDotEnv
+```
+
+The definition in the WSF packaging scripts file (.wsf) is as follows.
+
+```xml
+<package>
+  <job id = "run">
+    <script language="JScript" src="./WshModules/WshModeJs/dist/bundle.js"></script>
+    <script language="JScript" src="./WshModules/WshCommander/dist/module.js"></script>
+    <script language="JScript" src="./WshModules/WshDotEnv/dist/module.js"></script>
+    <script language="JScript" src="./MyScript.js"></script>
+  </job>
+</package>
+```
+
+Please note the difference between `.../dist/bundle.js` and `.../dist/module.js`.
+
+I recommend using [WshBasicApps](https://github.com/tuckn/WshBasicPackage).
+That includes all modules.
+
 ### Dependency Modules
 
-You can also use the following useful functions in _.\\MyScript.js_ (JScript).
+You can also use the following helper functions in your JScript (_.\\MyScript.js_).
 
 - [tuckn/WshPolyfill](https://github.com/tuckn/WshPolyfill)
 - [tuckn/WshUtil](https://github.com/tuckn/WshUtil)
