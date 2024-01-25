@@ -70,14 +70,14 @@
 
   // dotenv.config {{{
   /**
-   * Stores the values in .env file to {@link https://docs.tuckn.net/WshProcess/process.html#env|process.env}
+   * Stores the values in .env file to {@link https://tuckn.net/docs/WshProcess/process.html#env|process.env}
    *
    * @example
    * // If the contents of .env file are following...
    * // # Lines beginning with # are threated as comments,
    * // EMPTY=
    * // JSON={ foo: "bar" }
-   * // WHITE_SPACE=  some value 
+   * // WHITE_SPACE=  some value
    * // SINGLE_QUOTE='  some value '
    * // DOUBLE_QUOTE="  Some Value "
    * // MULTILINE="new
@@ -124,8 +124,8 @@
    * @memberof Wsh.DotEnv
    * @param {object} [options] - Optional parameters.
    * @param {string} [options.path] - Default: {@link Wsh.DotEnv.envPathDefault}. portable, userProfile, `File Path`
-   * @param {boolean} [options.parsesDate=false] - Parses the path as the date literal. See {@link https://docs.tuckn.net/WshUtil/Wsh.Util.html#.parseDateLiteral}.
-   * @param {string} [options.encoding] - Default: 'utf-8'. See {@link https://docs.tuckn.net/WshFileSystem/Wsh.FileSystem.html#.readFileSync|Wsh.FileSystem.readFileSync}
+   * @param {boolean} [options.parsesDate=false] - Parses the path as the date literal. See {@link https://tuckn.net/docs/WshUtil/Wsh.Util.html#.parseDateLiteral}.
+   * @param {string} [options.encoding] - Default: 'utf-8'. See {@link https://tuckn.net/docs/WshFileSystem/Wsh.FileSystem.html#.readFileSync|Wsh.FileSystem.readFileSync}
    * @returns {object} - Returns an Object with a `parsed` key containing the loaded content or an `error` key if it failed.
    */
   dotenv.config = function (options) {

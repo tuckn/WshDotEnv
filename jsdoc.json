@@ -37,9 +37,9 @@
     "openGraph": {
       "title": "WshDotEnv",
       "type": "website",
-      "image": "https://docs.tuckn.net/WshDotEnv/img/openGraph-image.png",
+      "image": "https://tuckn.net/docs/WshDotEnv/img/openGraph-image.png",
       "site_name": "@tuckn/WshDotEnv",
-      "url": "https://docs.tuckn.net/WshDotEnv"
+      "url": "https://tuckn.net/docs/WshDotEnv/"
     },
     "meta": {
       "title": "WshDotEnv",
